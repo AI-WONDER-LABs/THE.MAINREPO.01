@@ -1,6 +1,6 @@
 # Multi-stage Docker build for Ai-bilder
 # Stage 1: Dependencies
-FROM node:20-alpine AS deps
+FROM node:25-alpine AS deps
 WORKDIR /app
 
 # Copy package files
@@ -10,7 +10,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 # Stage 2: Runtime
-FROM node:20-alpine AS runner
+FROM node:25-alpine AS runner
 WORKDIR /app
 
 # Set environment to production by default
