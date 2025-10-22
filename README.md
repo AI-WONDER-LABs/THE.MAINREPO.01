@@ -1,7 +1,7 @@
 # AI-bilder Monorepo
 
 This repo hosts multiple projects in one place (monorepo). It combines:
-- ai-bilder (currently at repo root; will be moved under apps/ai-bilder later)
+- apps/ai-bilder — the original AI-bilder project
 - apps/ai-wonderland — SaaS app that helps create CircleCI configurations
 - demos/demo-repository — demo code
 - docs/circleci — CircleCI documentation (verify licensing for redistribution)
@@ -10,8 +10,8 @@ This repo hosts multiple projects in one place (monorepo). It combines:
 
 ```
 .
-├─ (root) ai-bilder (current)
 ├─ apps/
+│  ├─ ai-bilder/
 │  └─ ai-wonderland/
 ├─ demos/
 │  └─ demo-repository/
@@ -22,7 +22,7 @@ This repo hosts multiple projects in one place (monorepo). It combines:
 ## Getting started
 
 Each app has its own setup and commands. For JavaScript apps:
-- cd <path-to-app>
+- cd apps/<app-name>
 - npm ci
 - npm test (optional)
 
@@ -30,7 +30,7 @@ If an app uses another language/toolchain, see its README in that folder.
 
 ## CI
 
-A simple GitHub Actions workflow runs on push/PR and only runs Node setup/tests for folders that contain a package.json. You can expand it later for other languages.
+A simple GitHub Actions workflow runs on push/PR. You can expand it later for other languages.
 
 ## Notes
 
