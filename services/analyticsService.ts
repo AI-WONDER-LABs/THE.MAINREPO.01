@@ -28,14 +28,14 @@ export class AnalyticsService {
 
   async trackEvent(
     eventName: string,
-    properties?: Record<string, any>,
-    projectId?: string
+    properties?: Record<string, string | number | boolean>,
+    _projectId?: string
   ): Promise<void> {
     const event = {
       type: 'event',
       name: eventName,
       properties,
-      projectId,
+      projectId: _projectId,
       sessionId: this.sessionId,
       timestamp: new Date().toISOString(),
     };
@@ -43,7 +43,7 @@ export class AnalyticsService {
     console.log('Analytics event:', event);
   }
 
-  async getAnalytics(projectId: string, timeRange?: string): Promise<AnalyticsData> {
+  async getAnalytics(_projectId: string, _timeRange?: string): Promise<AnalyticsData> {
     // Simulated analytics data - in production, this would fetch from backend
     return {
       pageViews: Math.floor(Math.random() * 10000),

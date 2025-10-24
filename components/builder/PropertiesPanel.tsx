@@ -5,8 +5,8 @@ import { useBuilder } from '@/contexts/BuilderContext';
 
 export const PropertiesPanel: React.FC = () => {
   const { selectedComponent, updateComponent, deleteComponent } = useBuilder();
-  const [editedProps, setEditedProps] = useState<Record<string, any>>({});
-  const [editedStyles, setEditedStyles] = useState<Record<string, any>>({});
+  const [, setEditedProps] = useState<Record<string, string | number | boolean>>({});
+  const [, setEditedStyles] = useState<Record<string, string>>({});
 
   if (!selectedComponent) {
     return (
@@ -17,13 +17,13 @@ export const PropertiesPanel: React.FC = () => {
     );
   }
 
-  const handlePropChange = (key: string, value: any) => {
-    const newProps = { ...selectedComponent.props, [key]: value };
+  const handlePropChange = (key: string, value: string) => {
+    const newProps: Record<string, string | number | boolean> = { ...selectedComponent.props, [key]: value };
     setEditedProps(newProps);
     updateComponent(selectedComponent.id, { props: newProps });
   };
 
-  const handleStyleChange = (key: string, value: any) => {
+  const handleStyleChange = (key: string, value: string) => {
     const newStyles = { ...selectedComponent.styles, [key]: value };
     setEditedStyles(newStyles);
     updateComponent(selectedComponent.id, { styles: newStyles });
@@ -58,7 +58,7 @@ export const PropertiesPanel: React.FC = () => {
               <label className="text-xs text-gray-600 block mb-1">{key}</label>
               <input
                 type="text"
-                value={value}
+                value={String(value)}
                 onChange={(e) => handlePropChange(key, e.target.value)}
                 className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:border-blue-500"
               />
@@ -69,7 +69,7 @@ export const PropertiesPanel: React.FC = () => {
               <label className="text-xs text-gray-600 block mb-1">Content</label>
               <input
                 type="text"
-                value={selectedComponent.props?.children || ''}
+                value={String(selectedComponent.props?.children || '')}
                 onChange={(e) => handlePropChange('children', e.target.value)}
                 className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:border-blue-500"
               />

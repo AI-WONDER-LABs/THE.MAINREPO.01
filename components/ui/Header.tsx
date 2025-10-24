@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useUser } from '@/contexts/UserContext';
-import { FiMenu, FiUser, FiLogOut } from 'react-icons/fi';
+import { FiUser, FiLogOut } from 'react-icons/fi';
 
 export const Header: React.FC = () => {
   const { user, logout, isAuthenticated } = useUser();

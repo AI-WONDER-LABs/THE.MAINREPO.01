@@ -4,7 +4,7 @@ import React from 'react';
 import { useApp } from '@/contexts/AppContext';
 import { Header } from '@/components/ui/Header';
 import Link from 'next/link';
-import { FiFolder, FiTrash2, FiEdit, FiExternalLink } from 'react-icons/fi';
+import { FiFolder, FiTrash2, FiEdit } from 'react-icons/fi';
 
 export default function ProjectsPage() {
   const { projects, deleteProject } = useApp();

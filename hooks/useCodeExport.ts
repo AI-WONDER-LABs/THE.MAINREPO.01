@@ -5,16 +5,22 @@ import { useState, useCallback } from 'react';
 interface CodeExportOptions {
   framework?: 'react' | 'vue' | 'html';
   includeStyles?: boolean;
-  prettify?: boolean;
+}
+
+interface ComponentData {
+  type?: string;
+  props?: Record<string, string | number | boolean>;
+  styles?: Record<string, string>;
+  children?: ComponentData[];
 }
 
 export const useCodeExport = () => {
   const [exportedCode, setExportedCode] = useState<string>('');
 
-  const exportAsReact = useCallback((components: any[], options: CodeExportOptions = {}) => {
-    const { includeStyles = true, prettify = true } = options;
+  const exportAsReact = useCallback((components: ComponentData[], options: CodeExportOptions = {}) => {
+    const { includeStyles = true } = options;
 
-    const generateCode = (comp: any, indent = 2): string => {
+    const generateCode = (comp: ComponentData, indent = 2): string => {
       const spaces = ' '.repeat(indent);
       const props = Object.entries(comp.props || {})
         .map(([key, value]) => `${key}="${value}"`)
@@ -25,7 +31,7 @@ export const useCodeExport = () => {
         : '';
 
       const tag = comp.type || 'div';
-      const children = comp.children?.map((c: any) => generateCode(c, indent + 2)).join('\n') || '';
+      const children = comp.children?.map((c: ComponentData) => generateCode(c, indent + 2)).join('\n') || '';
 
       if (children) {
         return `${spaces}<${tag} ${props} ${styles}>\n${children}\n${spaces}</${tag}>`;
@@ -39,8 +45,8 @@ export const useCodeExport = () => {
     return code;
   }, []);
 
-  const exportAsHTML = useCallback((components: any[]) => {
-    const generateHTML = (comp: any, indent = 2): string => {
+  const exportAsHTML = useCallback((components: ComponentData[]) => {
+    const generateHTML = (comp: ComponentData, indent = 2): string => {
       const spaces = ' '.repeat(indent);
       const props = Object.entries(comp.props || {})
         .map(([key, value]) => `${key}="${value}"`)
@@ -51,7 +57,7 @@ export const useCodeExport = () => {
         : '';
 
       const tag = comp.type || 'div';
-      const children = comp.children?.map((c: any) => generateHTML(c, indent + 2)).join('\n') || '';
+      const children = comp.children?.map((c: ComponentData) => generateHTML(c, indent + 2)).join('\n') || '';
 
       if (children) {
         return `${spaces}<${tag} ${props} ${styleAttr}>\n${children}\n${spaces}</${tag}>`;

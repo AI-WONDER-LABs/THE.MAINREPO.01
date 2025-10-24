@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Project, Page } from '@/types';
+import { Project } from '@/types';
 
 interface AppContextType {
   projects: Project[];

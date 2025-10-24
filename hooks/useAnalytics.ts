@@ -15,11 +15,11 @@ export const useAnalytics = (projectId?: string) => {
 
   useEffect(() => {
     if (projectId) {
-      fetchAnalytics(projectId);
+      void fetchAnalytics(projectId);
     }
   }, [projectId]);
 
-  const fetchAnalytics = async (id: string) => {
+  const fetchAnalytics = async (_id: string) => {
     setLoading(true);
     try {
       // Simulated analytics data - in production, this would call an API
@@ -42,7 +42,7 @@ export const useAnalytics = (projectId?: string) => {
     }
   };
 
-  const trackEvent = async (eventName: string, properties?: Record<string, any>) => {
+  const trackEvent = async (eventName: string, properties?: Record<string, string | number | boolean>) => {
     // Simulated event tracking
     console.log('Track event:', eventName, properties);
   };

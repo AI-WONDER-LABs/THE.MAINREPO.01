@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Component, Page, ComponentType } from '@/types';
+import { Component, Page } from '@/types';
 
 interface BuilderContextType {
   currentPage: Page | null;

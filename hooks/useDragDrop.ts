@@ -1,29 +1,26 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface DragDropHandlers {
-  onDragStart: (e: React.DragEvent, data: any) => void;
-  onDragEnd: (e: React.DragEvent) => void;
+  onDragStart: (e: React.DragEvent, data: unknown) => void;
+  onDragEnd: () => void;
   onDragOver: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent, callback: (data: any) => void) => void;
+  onDrop: (e: React.DragEvent, callback: (data: unknown) => void) => void;
   isDragging: boolean;
 }
 
 export const useDragDrop = (): DragDropHandlers => {
   const [isDragging, setIsDragging] = useState(false);
-  const [dragData, setDragData] = useState<any>(null);
 
-  const onDragStart = (e: React.DragEvent, data: any) => {
+  const onDragStart = (e: React.DragEvent, data: unknown) => {
     setIsDragging(true);
-    setDragData(data);
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/plain', JSON.stringify(data));
   };
 
-  const onDragEnd = (e: React.DragEvent) => {
+  const onDragEnd = () => {
     setIsDragging(false);
-    setDragData(null);
   };
 
   const onDragOver = (e: React.DragEvent) => {
@@ -31,7 +28,7 @@ export const useDragDrop = (): DragDropHandlers => {
     e.dataTransfer.dropEffect = 'move';
   };
 
-  const onDrop = (e: React.DragEvent, callback: (data: any) => void) => {
+  const onDrop = (e: React.DragEvent, callback: (data: unknown) => void) => {
     e.preventDefault();
     e.stopPropagation();
     

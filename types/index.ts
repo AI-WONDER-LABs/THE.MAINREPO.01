@@ -25,9 +25,9 @@ export interface PageMetadata {
 export interface Component {
   id: string;
   type: ComponentType;
-  props: Record<string, any>;
+  props: Record<string, string | number | boolean>;
   children?: Component[];
-  styles?: Record<string, any>;
+  styles?: Record<string, string>;
 }
 
 export type ComponentType = 

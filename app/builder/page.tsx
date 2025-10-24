@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useBuilder } from '@/contexts/BuilderContext';
 import { useApp } from '@/contexts/AppContext';
 import { ComponentPalette } from '@/components/builder/ComponentPalette';
@@ -10,9 +10,46 @@ import { CodeExportModal } from '@/components/builder/CodeExportModal';
 import { FiSave, FiCode, FiEye, FiEyeOff } from 'react-icons/fi';
 import { ComponentType } from '@/types';
 
+let componentCounter = 0;
+
+const getDefaultProps = (type: ComponentType): Record<string, string | number | boolean> => {
+  switch (type) {
+    case 'text':
+      return { children: 'Text content' };
+    case 'button':
+      return { children: 'Button' };
+    case 'image':
+      return { src: '/placeholder.jpg', alt: 'Image' };
+    case 'input':
+      return { type: 'text', placeholder: 'Enter text...' };
+    default:
+      return {};
+  }
+};
+
+const getDefaultStyles = (type: ComponentType): Record<string, string> => {
+  switch (type) {
+    case 'container':
+      return { padding: '20px', minHeight: '100px', border: '1px dashed #ccc' };
+    case 'text':
+      return { fontSize: '16px', margin: '10px 0' };
+    case 'button':
+      return {
+        padding: '10px 20px',
+        backgroundColor: '#3b82f6',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+      };
+    default:
+      return {};
+  }
+};
+
 export default function BuilderPage() {
   const { currentPage, setCurrentPage, addComponent, previewMode, setPreviewMode } = useBuilder();
-  const { currentProject, setCurrentProject, createProject } = useApp();
+  const { currentProject, createProject } = useApp();
   const [showExportModal, setShowExportModal] = useState(false);
 
   useEffect(() => {
@@ -29,50 +66,16 @@ export default function BuilderPage() {
     }
   }, [currentProject, currentPage, setCurrentPage]);
 
-  const handleComponentSelect = (type: ComponentType) => {
+  const handleComponentSelect = useCallback((type: ComponentType) => {
+    componentCounter += 1;
     const newComponent = {
-      id: `component-${Date.now()}`,
+      id: `component-${componentCounter}`,
       type,
       props: getDefaultProps(type),
       styles: getDefaultStyles(type),
     };
     addComponent(newComponent);
-  };
-
-  const getDefaultProps = (type: ComponentType): Record<string, any> => {
-    switch (type) {
-      case 'text':
-        return { children: 'Text content' };
-      case 'button':
-        return { children: 'Button' };
-      case 'image':
-        return { src: '/placeholder.jpg', alt: 'Image' };
-      case 'input':
-        return { type: 'text', placeholder: 'Enter text...' };
-      default:
-        return {};
-    }
-  };
-
-  const getDefaultStyles = (type: ComponentType): Record<string, any> => {
-    switch (type) {
-      case 'container':
-        return { padding: '20px', minHeight: '100px', border: '1px dashed #ccc' };
-      case 'text':
-        return { fontSize: '16px', margin: '10px 0' };
-      case 'button':
-        return {
-          padding: '10px 20px',
-          backgroundColor: '#3b82f6',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        };
-      default:
-        return {};
-    }
-  };
+  }, [addComponent]);
 
   return (
     <div className="h-screen flex flex-col">

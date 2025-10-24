@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { AIModelConfig } from '@/types';
 
 export class AIService {
@@ -54,7 +53,11 @@ export class AIService {
     }
   }
 
-  async suggestLayout(description: string): Promise<any> {
+  async suggestLayout(_description: string): Promise<{
+    type: string;
+    props: { className: string };
+    children: Array<{ type: string; props: Record<string, never> }>;
+  }> {
     try {
       // Simulated layout suggestion
       return {
@@ -62,7 +65,7 @@ export class AIService {
         props: { className: 'flex flex-col gap-4' },
         children: [
           { type: 'navbar', props: {} },
-          { type: 'container', props: { className: 'flex-1' } },
+          { type: 'container', props: {} },
           { type: 'footer', props: {} },
         ],
       };
