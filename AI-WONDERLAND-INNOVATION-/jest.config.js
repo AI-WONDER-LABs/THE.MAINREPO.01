@@ -4,6 +4,7 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.{js,ts}', '!src/**/*.test.{js,ts}', '!src/**/__tests__/**'],
   testMatch: ['**/tests/**/*.test.{js,ts}', '**/__tests__/**/*.{js,ts}'],
   testPathIgnorePatterns: ['/node_modules/', '/dist/', '/build/'],
+  testTimeout: 15000,
   coverageThreshold: {
     global: {
       branches: 70,

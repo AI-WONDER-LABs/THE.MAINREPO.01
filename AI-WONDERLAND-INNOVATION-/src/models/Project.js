@@ -80,6 +80,11 @@ const projectSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isSeekingInvestment: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
   },
   {
     timestamps: true,

@@ -8,6 +8,9 @@ const router = express.Router();
 
 const authRoutes = require('./auth');
 const projectRoutes = require('./projects');
+const marketplaceRoutes = require('./marketplace');
+const investmentRoutes = require('./investments');
+const projectFundingRoutes = require('./project-funding');
 
 // API health check
 router.get('/health', (req, res) => {
@@ -21,5 +24,8 @@ router.get('/health', (req, res) => {
 // Mount routes
 router.use('/auth', authRoutes);
 router.use('/projects', projectRoutes);
+router.use('/marketplace', marketplaceRoutes);
+router.use('/investments', investmentRoutes);
+router.use('/project-funding', projectFundingRoutes);
 
 module.exports = router;
