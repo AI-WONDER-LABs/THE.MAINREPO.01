@@ -29,8 +29,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const login = async (email: string, _password: string) => {
-    // Simulated login - in production, this would call an API
-    // Password is validated in a real implementation
+    // Mock implementation: password parameter accepted for interface compliance
+    // In production, this would validate credentials against an authentication API
     const mockUser: User = {
       id: '1',
       email,
