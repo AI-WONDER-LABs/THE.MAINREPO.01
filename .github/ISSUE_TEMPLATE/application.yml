@@ -1,0 +1,114 @@
+name: Application to Join
+description: Use this to apply for membership, contributor access, or to join our team
+title: '[Application] Your Name — Role'
+labels: ['application', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in joining our project! Please fill out the sections below. We will review your application and respond.
+
+  - type: input
+    id: github-username
+    attributes:
+      label: GitHub Username
+      description: Your GitHub username
+      placeholder: '@username'
+    validations:
+      required: true
+
+  - type: input
+    id: full-name
+    attributes:
+      label: Full Name
+      description: Your full name
+      placeholder: John Doe
+    validations:
+      required: true
+
+  - type: input
+    id: email
+    attributes:
+      label: Email
+      description: Your email address (optional)
+      placeholder: your.email@example.com
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: Which role are you applying for?
+      description: Select the role that best fits your interests
+      options:
+        - Contributor
+        - Maintainer
+        - Reviewer
+        - Designer
+        - Documentation Writer
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: repositories
+    attributes:
+      label: Which repositories or projects do you want access to?
+      description: List the owner/repo names you'd like to contribute to
+      placeholder: |
+        - wonderingtribe/AI-WONDERLAND.MAIN.REPO2
+        - wonderingtribe/another-repo
+    validations:
+      required: true
+
+  - type: textarea
+    id: skills-experience
+    attributes:
+      label: Skills & Relevant Experience
+      description: Brief bullets about your skills and experience
+      placeholder: |
+        - 5 years of JavaScript/React development
+        - Experience with Next.js and TypeScript
+        - Portfolio: https://example.com
+        - LinkedIn: https://linkedin.com/in/yourprofile
+    validations:
+      required: true
+
+  - type: input
+    id: availability
+    attributes:
+      label: Availability
+      description: Hours per week and timezone
+      placeholder: e.g., 10-15 hours/week, UTC-5
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why do you want to join this project?
+      description: Tell us what motivates you to contribute to this project
+      placeholder: Explain your interest in the project and what you hope to achieve
+    validations:
+      required: true
+
+  - type: textarea
+    id: example-contributions
+    attributes:
+      label: Example Contributions
+      description: Links to PRs, issues, or sample work that demonstrates your skills
+      placeholder: |
+        - Pull Request: https://github.com/...
+        - Sample Project: https://github.com/...
+        - Portfolio: https://...
+
+  - type: checkboxes
+    id: agreement
+    attributes:
+      label: Agreement
+      description: Please confirm that you agree to our guidelines
+      options:
+        - label: I agree to follow the organization and project guidelines
+          required: true
+        - label: I have read the CODE_OF_CONDUCT.md
+          required: true
+        - label: I have read the CONTRIBUTING.md
+          required: true
