@@ -5,8 +5,6 @@
  * MongoDB stores flexible project content (JSON structure)
  */
 
-const config = require('../config');
-
 let connections = {
   mongodb: false,
   postgresql: false,
