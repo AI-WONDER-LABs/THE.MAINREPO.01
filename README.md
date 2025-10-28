@@ -96,7 +96,7 @@ The application follows React best practices and modern patterns:
 
 ## Project Structure
 
-````
+```
 frontend-builder/
 ├── app/                      # Next.js app directory
 │   ├── analytics/           # Analytics dashboard page
@@ -129,13 +129,14 @@ frontend-builder/
 │   └── domainService.ts     # Domain management
 └── types/                   # TypeScript definitions
     └── index.ts             # Type definitions
-        frontend/main
+```
 
 ## Getting Started
 
 ### Prerequisites
 
        HEAD
+
 - Node.js & npm
 - Docker (optional, for deployment)
 - Git
@@ -146,7 +147,7 @@ frontend-builder/
 git clone https://github.com/AI-WONDER-LABs/Ai-bilder.git
 cd Ai-bilder
 npm install
-````
+```
 
 ### Running Locally
 
@@ -179,102 +180,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 ## License
 
 [MIT](LICENSE)
-
-- Node.js 18+
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/AI-WONDER-LABs/frontend-builder.git
-cd frontend-builder
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Run the development server:
-
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Build for Production
-
-```bash
-npm run build
-npm start
-```
-
-### Linting
-
-```bash
-npm run lint
-```
-
-## Usage
-
-### Creating a Project
-
-1. Navigate to the Dashboard
-2. Click "New Project"
-3. Enter project name and description
-4. Start building in the Builder interface
-
-### Building a Page
-
-1. Open a project in the Builder
-2. Drag components from the left palette onto the canvas
-3. Click components to select and edit properties in the right panel
-4. Use Preview mode to see the final result
-5. Export code when ready
-
-### Code Export
-
-1. Click "Export Code" in the Builder toolbar
-2. View the generated React/TypeScript code
-3. Copy to clipboard or download as a file
-4. Use the code in your own projects
-
-## Key Components
-
-### Contexts
-
-- **AppContext**: Manages projects and global app state
-- **BuilderContext**: Handles builder-specific state (current page, components, selection)
-- **UserContext**: User authentication and profile
-
-### Services
-
-- **AIService**: AI-powered features (component generation, content creation)
-- **APIGeneratorService**: Generates API endpoints and routes
-- **DomainService**: Domain configuration and DNS management
-- **AnalyticsService**: Event tracking and analytics data
-
-### Custom Hooks
-
-- **useAnalytics**: Analytics data fetching and event tracking
-- **useCodeExport**: Code generation and export functionality
-- **useDragDrop**: Drag-and-drop interaction handling
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Built with [Next.js](https://nextjs.org/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
-- Icons from [React Icons](https://react-icons.github.io/react-icons/)
-  frontend/main
