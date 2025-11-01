@@ -1,20 +1,19 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '@/contexts/AppContext';
 import Link from 'next/link';
 import { FiPlus, FiFolder, FiClock, FiTrendingUp, FiUsers, FiCpu, FiZap } from 'react-icons/fi';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { GlassCard } from '@/components/dashboard/GlassCard';
+import { CreateProjectModal } from '@/components/ui/CreateProjectModal';
 
 export default function DashboardPage() {
   const { projects, createProject } = useApp();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCreateProject = () => {
-    const name = prompt('Enter project name:');
-    if (name) {
-      createProject(name, 'A new website project');
-    }
+  const handleCreateProject = (name: string, description: string) => {
+    createProject(name, description);
   };
 
   const stats = [
@@ -34,12 +33,18 @@ export default function DashboardPage() {
             <p className="text-white/80 text-lg">Manage your projects and track your progress</p>
           </div>
           <button
-            onClick={handleCreateProject}
+            onClick={() => setIsModalOpen(true)}
             className="btn-primary flex items-center gap-2"
           >
             <FiPlus className="w-5 h-5" /> New Project
           </button>
         </div>
+
+        <CreateProjectModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleCreateProject}
+        />
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -131,7 +136,7 @@ export default function DashboardPage() {
               <h3 className="text-2xl font-semibold mb-2 text-white">No projects yet</h3>
               <p className="text-white/80 mb-6">Create your first project to get started</p>
               <button
-                onClick={handleCreateProject}
+                onClick={() => setIsModalOpen(true)}
                 className="btn-primary inline-flex items-center gap-2"
               >
                 <FiPlus /> Create Project
