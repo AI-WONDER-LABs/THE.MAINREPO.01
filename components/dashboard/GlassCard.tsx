@@ -32,7 +32,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2 }}
       onClick={onClick}
-      className="cursor-pointer"
+      className={onClick ? "cursor-pointer" : ""}
     >
       {cardContent}
     </motion.div>

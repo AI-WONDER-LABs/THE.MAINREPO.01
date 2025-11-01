@@ -1,5 +1,3 @@
-'use client';
-
 import Link from "next/link";
 import { FiCode, FiLayout, FiZap, FiGlobe, FiBarChart, FiCpu, FiArrowRight } from "react-icons/fi";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
