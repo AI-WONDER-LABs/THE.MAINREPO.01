@@ -217,7 +217,7 @@ Content-Type: application/json
 
 {
   "email": "user@example.com",
-  "password": "SecurePassword123",
+  "password": "<YOUR_SECURE_PASSWORD>",
   "name": "John Doe"
 }
 ```
@@ -249,7 +249,7 @@ Content-Type: application/json
 
 {
   "email": "user@example.com",
-  "password": "SecurePassword123"
+  "password": "<YOUR_SECURE_PASSWORD>"
 }
 ```
 
