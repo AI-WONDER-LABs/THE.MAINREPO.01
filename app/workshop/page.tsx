@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { FiExternalLink, FiPackage, FiShoppingCart } from 'react-icons/fi';
+import { FiExternalLink, FiPackage, FiShoppingCart, FiCpu, FiZap, FiLayers } from 'react-icons/fi';
 import { DashboardLayout } from '@/components/dashboard/DashboardLayout';
 import { GlassCard } from '@/components/dashboard/GlassCard';
 
@@ -12,14 +12,95 @@ export default function WorkshopPage() {
       <div className="max-w-7xl mx-auto">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">Workshop</h1>
+          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">Workshop & AI Agents</h1>
           <p className="text-white/80 text-lg">
-            Explore and install apps and extensions from GitHub Marketplace
+            Explore apps, extensions, and AI agents to supercharge your workflow
           </p>
+        </div>
+
+        {/* AI Agents Section */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-white mb-6 drop-shadow-md">AI Agents</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {/* Custom Agent Builder */}
+            <Link href="/agent-builder">
+              <GlassCard className="p-8 bg-gradient-to-br from-purple-400/30 via-pink-400/30 to-blue-400/30 border-2 border-white/30 hover:scale-105 transition-transform h-full">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
+                    <FiCpu className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Custom Agent Builder</h3>
+                    <p className="text-white/70">Create your own AI agent</p>
+                  </div>
+                </div>
+                <p className="text-white/90 mb-4">
+                  Design and deploy custom AI agents tailored to your specific needs. 
+                  Configure behavior, prompts, tools, and integrations with a visual builder.
+                </p>
+                <ul className="space-y-2 text-white/80 mb-4">
+                  <li className="flex items-center gap-2">
+                    <FiZap className="w-4 h-4" />
+                    Visual workflow designer
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <FiZap className="w-4 h-4" />
+                    Custom prompts & behavior
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <FiZap className="w-4 h-4" />
+                    API integrations
+                  </li>
+                </ul>
+                <div className="btn-primary inline-flex items-center gap-2">
+                  Build Custom Agent
+                  <FiExternalLink className="w-4 h-4" />
+                </div>
+              </GlassCard>
+            </Link>
+
+            {/* Pre-built Agent Templates */}
+            <Link href="/agent-templates">
+              <GlassCard className="p-8 bg-gradient-to-br from-cyan-400/30 via-blue-400/30 to-purple-400/30 border-2 border-white/30 hover:scale-105 transition-transform h-full">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
+                    <FiLayers className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Agent Templates</h3>
+                    <p className="text-white/70">Start with ready-made agents</p>
+                  </div>
+                </div>
+                <p className="text-white/90 mb-4">
+                  Browse our library of pre-built AI agent templates designed for common use cases. 
+                  One-click deployment with customization options.
+                </p>
+                <ul className="space-y-2 text-white/80 mb-4">
+                  <li className="flex items-center gap-2">
+                    <FiZap className="w-4 h-4" />
+                    50+ ready-to-use templates
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <FiZap className="w-4 h-4" />
+                    One-click deployment
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <FiZap className="w-4 h-4" />
+                    Fully customizable
+                  </li>
+                </ul>
+                <div className="btn-primary inline-flex items-center gap-2">
+                  Browse Templates
+                  <FiExternalLink className="w-4 h-4" />
+                </div>
+              </GlassCard>
+            </Link>
+          </div>
         </div>
 
         {/* GitHub Marketplace Button - Tie-Dye Themed Card */}
         <div className="mb-8">
+          <h2 className="text-3xl font-bold text-white mb-6 drop-shadow-md">GitHub Marketplace</h2>
           <GlassCard className="p-8 bg-gradient-to-br from-purple-400/30 via-pink-400/30 to-blue-400/30 border-2 border-white/30">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex-1 text-center md:text-left">
