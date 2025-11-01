@@ -188,7 +188,7 @@ import * as projectService from '@/services/projectService';
 // Login
 const loginResult = await authService.login({
   email: 'user@example.com',
-  password: 'password123'
+  password: '<YOUR_SECURE_PASSWORD>'
 });
 
 if (loginResult.success) {
