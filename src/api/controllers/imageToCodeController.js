@@ -5,6 +5,17 @@
 
 const config = require('../../config');
 const fs = require('fs').promises;
+const path = require('path');
+
+/**
+ * Validate that file path is within allowed upload directory
+ * Prevents path traversal attacks
+ */
+const isPathSafe = (filePath) => {
+  const uploadDir = path.resolve(config.upload.uploadDir || 'uploads/');
+  const resolvedPath = path.resolve(filePath);
+  return resolvedPath.startsWith(uploadDir);
+};
 
 /**
  * Validate image upload
@@ -165,7 +176,7 @@ const convertImageToCode = async (req, res) => {
     const validation = validateImageUpload(req.file);
     if (validation.error) {
       // Clean up uploaded file if validation fails
-      if (req.file && req.file.path) {
+      if (req.file && req.file.path && isPathSafe(req.file.path)) {
         await fs.unlink(req.file.path).catch(() => {});
       }
       return res.status(400).json({
@@ -175,15 +186,26 @@ const convertImageToCode = async (req, res) => {
     }
 
     const imagePath = req.file.path;
+    
+    // Additional security check: ensure path is within upload directory
+    if (!isPathSafe(imagePath)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid file path',
+      });
+    }
+
     const provider = req.body.provider || config.ai.provider || 'openai';
 
     // Generate code from image
     const result = await generateCodeFromImage(imagePath, provider);
 
     // Clean up uploaded file
-    await fs.unlink(imagePath).catch((err) => {
-      console.error('Failed to delete uploaded file:', err);
-    });
+    if (isPathSafe(imagePath)) {
+      await fs.unlink(imagePath).catch((err) => {
+        console.error('Failed to delete uploaded file:', err);
+      });
+    }
 
     res.json({
       success: true,
@@ -196,7 +218,7 @@ const convertImageToCode = async (req, res) => {
     });
   } catch (error) {
     // Clean up uploaded file on error
-    if (req.file && req.file.path) {
+    if (req.file && req.file.path && isPathSafe(req.file.path)) {
       await fs.unlink(req.file.path).catch(() => {});
     }
 
