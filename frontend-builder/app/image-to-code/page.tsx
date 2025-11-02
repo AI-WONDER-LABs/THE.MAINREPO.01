@@ -42,14 +42,12 @@ export default function ImageToCodePage() {
             {image && (
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h3 className="text-lg font-semibold mb-4">Preview</h3>
-                <div className="relative w-full" style={{ minHeight: '200px' }}>
+                <div className="relative w-full min-h-[200px]">
                   <Image
                     src={image}
                     alt="Uploaded"
-                    width={800}
-                    height={600}
-                    className="w-full rounded-lg border"
-                    style={{ objectFit: 'contain' }}
+                    fill
+                    className="rounded-lg border object-contain"
                   />
                 </div>
               </div>
