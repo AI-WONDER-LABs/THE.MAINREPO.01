@@ -1,65 +1,52 @@
-// components/terminal/Terminal.tsx
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Terminal } from "xterm";
-import { FitAddon } from "@xterm/addon-fit";
-import { WebglAddon } from "@xterm/addon-webgl";
-import "xterm/css/xterm.css";
+import { useState } from "react";
 
-interface Props {
-  wsUrl?: string;
-}
+export default function TerminalComponent() {
+  const [lines, setLines] = useState<string[]>(["Welcome to Wonderland Terminal"]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-export default function TerminalComponent({ wsUrl = "ws://localhost:8081" }: Props) {
-  const termRef = useRef<HTMLDivElement>(null);
-  const term = useRef<Terminal | null>(null);
-  const ws = useRef<WebSocket | null>(null);
-  const fitAddon = useRef(new FitAddon());
+  const handleCommand = async (cmd: string) => {
+    if (!cmd.trim()) return;
 
-  useEffect(() => {
-    if (!termRef.current) return;
+    setLines(prev => [...prev, `> ${cmd}`]);
+    setInput("");
+    setLoading(true);
 
-    const t = new Terminal({
-      theme: { background: "#1e1e1e", foreground: "#d4d4d4" },
-      fontFamily: "Menlo, Monaco, 'Courier New', monospace",
-      cursorBlink: true,
-    });
-    term.current = t;
-
-    t.loadAddon(fitAddon.current);
     try {
-      t.loadAddon(new WebglAddon());
-    } catch {}
+      const res = await fetch("/api/agent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ command: cmd }),
+      });
 
-    t.open(termRef.current);
-    fitAddon.current.fit();
-
-    const socket = new WebSocket(wsUrl);
-    ws.current = socket;
-
-    socket.onopen = () => t.write("\r\n$ ");
-    socket.onmessage = (e) => t.write(e.data.toString());
-    socket.onclose = () => t.write("\r\nConnection closed.\r\n");
-
-    t.onData((data) => socket.readyState === WebSocket.OPEN && socket.send(data));
-    t.onResize(({ cols, rows }) => {
-      socket.send(JSON.stringify({ type: "resize", cols, rows }));
-    });
-
-    const resizeObserver = new ResizeObserver(() => fitAddon.current.fit());
-    resizeObserver.observe(termRef.current);
-
-    return () => {
-      socket.close();
-      t.dispose();
-      resizeObserver.disconnect();
-    };
-  }, [wsUrl]);
+      const data = await res.json();
+      setLines(prev => [...prev, data.output || "No response"]);
+    } catch (err) {
+      setLines(prev => [...prev, "Error connecting to agent"]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="h-full w-full bg-[#1e1e1e] rounded-md overflow-hidden">
-      <div ref={termRef} className="h-full" />
+    <div className="bg-black text-green-400 font-mono h-full p-2 overflow-y-auto rounded-lg">
+      {lines.map((line, i) => (
+        <div key={i} className="whitespace-pre-wrap">{line}</div>
+      ))}
+
+      <div className="flex mt-2">
+        <span className="mr-2">$</span>
+        <input
+          className="flex-1 bg-transparent outline-none text-green-400"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleCommand(input)}
+          placeholder={loading ? "Running..." : "Enter command"}
+          disabled={loading}
+        />
+      </div>
     </div>
   );
 }
