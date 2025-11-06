@@ -8,7 +8,7 @@ import { Canvas } from '@/components/builder/Canvas';
 import { PropertiesPanel } from '@/components/builder/PropertiesPanel';
 import { CodeExportModal } from '@/components/builder/CodeExportModal';
 import { ImportFromImage } from '@/components/builder/ImportFromImage';
-import { FiSave, FiCode, FiEye, FiEyeOff, FiImage } from 'react-icons/fi';
+import { FiSave, FiCode, FiEye, FiEyeOff, FiImage }
 import { ComponentType } from '@/types';
 
 let componentCounter = 0;
