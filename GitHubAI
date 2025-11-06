@@ -1,4 +1,6 @@
-GitHubAI/              ← Root folder
-└── SrcCode2/          ← Source folder
-    └── com/github/models/inference/samples/
-        └── BasicGitHubAI.java
+GitHubAI/                       ← Root project folder
+├── SrcCode2/                   ← Source code folder
+│   └── com/github/models/inference/samples/
+│       └── BasicGitHubAI.java  ← Main class with main()
+├── libs/                        ← Optional: external jars (Azure SDK)
+└── README.md                    ← Project info / instructions
