@@ -25,17 +25,12 @@ interface AgentStep {
 }
 
 export default function BuilderPage() {
-  // State: Pages & Components
   const [pages, setPages] = useState([{ id: 'page-1', name: 'Home', blocks: [] }])
   const [currentPageId, setCurrentPageId] = useState('page-1')
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null)
   const [selectedAgentStepId, setSelectedAgentStepId] = useState<string | null>(null)
-
-  // State: Agent Workflow
   const [agentSteps, setAgentSteps] = useState<AgentStep[]>([])
   const [agentName, setAgentName] = useState('My Agent')
-
-  // State: UI Controls
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [showAIPanel, setShowAIPanel] = useState(false)
   const [previewMode, setPreviewMode] = useState(false)
@@ -43,10 +38,8 @@ export default function BuilderPage() {
   const [aiModel, setAiModel] = useState('gpt-4')
   const [aiPrompt, setAiPrompt] = useState('')
 
-  // Get current page
   const currentPage = pages.find(p => p.id === currentPageId) || pages[0]
 
-  // Helper: Add block to canvas
   const addBlock = (type: Block['type']) => {
     const newBlock: Block = {
       id: `block-${Date.now()}`,
@@ -54,14 +47,13 @@ export default function BuilderPage() {
       props: { text: `${type} element` },
       style: { padding: '16px', minHeight: '40px', border: '1px solid #ccc' }
     }
-    setPages(pages.map(p => 
-      p.id === currentPageId 
+    setPages(pages.map(p =>
+      p.id === currentPageId
         ? { ...p, blocks: [...p.blocks, newBlock] }
         : p
     ))
   }
 
-  // Helper: Add agent step
   const addAgentStep = (stepType: AgentStep['type']) => {
     const newStep: AgentStep = {
       id: `step-${Date.now()}`,
@@ -72,12 +64,10 @@ export default function BuilderPage() {
     setAgentSteps([...agentSteps, newStep])
   }
 
-  // Helper: Delete agent step
   const deleteAgentStep = (id: string) => {
     setAgentSteps(agentSteps.filter(s => s.id !== id))
   }
 
-  // Render Canvas Blocks
   const renderBlocks = (blocks: Block[], depth = 0) => (
     <div className="space-y-2">
       {blocks.map(block => (
@@ -96,7 +86,7 @@ export default function BuilderPage() {
             <button
               onClick={(e) => {
                 e.stopPropagation()
-                setPages(pages.map(p => 
+                setPages(pages.map(p =>
                   p.id === currentPageId
                     ? { ...p, blocks: p.blocks.filter(b => b.id !== block.id) }
                     : p
@@ -115,7 +105,6 @@ export default function BuilderPage() {
 
   return (
     <div className="h-screen flex flex-col bg-gray-50">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200 px-6 py-4 shadow-sm flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center gap-4">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-100 rounded">
@@ -129,7 +118,7 @@ export default function BuilderPage() {
             {previewMode ? <Eye size={16} /> : <EyeOff size={16} />}
             {previewMode ? 'Preview' : 'Edit'}
           </button>
-          <button onClick={() => setShowAIPanel(!showAIPanel)} className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded transition">
+          <button onClick={() => setShowAIPanel(!showAIPanel)} className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition">
             <Bot size={16} /> AI
           </button>
           <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition">
@@ -141,12 +130,9 @@ export default function BuilderPage() {
         </div>
       </header>
 
-      {/* Main Content */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Left Sidebar: Toolbox */}
         {sidebarOpen && (
           <aside className="w-72 bg-white border-r border-gray-200 overflow-y-auto shadow-sm">
-            {/* Pages Section */}
             <div className="p-4 border-b border-gray-200">
               <h3 className="font-bold text-sm text-gray-800 mb-3">📄 Pages</h3>
               {pages.map(page => (
@@ -167,7 +153,6 @@ export default function BuilderPage() {
               </button>
             </div>
 
-            {/* Component Palette */}
             <div className="p-4 border-b border-gray-200">
               <h3 className="font-bold text-sm text-gray-800 mb-3">🧩 Components</h3>
               <div className="space-y-2">
@@ -190,7 +175,6 @@ export default function BuilderPage() {
               </div>
             </div>
 
-            {/* Agent Builder */}
             <div className="p-4 border-b border-gray-200">
               <h3 className="font-bold text-sm text-gray-800 mb-3">🤖 Agent Workflow</h3>
               <input
@@ -207,7 +191,7 @@ export default function BuilderPage() {
                     onClick={() => setSelectedAgentStepId(step.id)}
                     className={`p-2 rounded cursor-pointer transition text-sm ${
                       selectedAgentStepId === step.id
-                        ? 'bg-purple-100 border border-purple-400'
+                        ? 'bg-red-100 border border-red-400'
                         : 'bg-gray-100 border border-gray-300'
                     } flex items-center justify-between`}
                   >
@@ -229,7 +213,7 @@ export default function BuilderPage() {
                   <button
                     key={type}
                     onClick={() => addAgentStep(type as AgentStep['type'])}
-                    className="w-full p-2 text-xs border border-dashed border-purple-300 hover:border-purple-500 rounded transition text-purple-700"
+                    className="w-full p-2 text-xs border border-dashed border-red-300 hover:border-red-500 rounded transition text-red-700"
                   >
                     + Add {type.charAt(0).toUpperCase() + type.slice(1)}
                   </button>
@@ -239,7 +223,6 @@ export default function BuilderPage() {
           </aside>
         )}
 
-        {/* Center: Canvas */}
         {!showAIPanel && (
           <main className="flex-1 overflow-auto p-6 bg-gray-50">
             {previewMode ? (
@@ -263,7 +246,6 @@ export default function BuilderPage() {
           </main>
         )}
 
-        {/* Right Sidebar: Properties Panel */}
         {!showAIPanel && (
           <aside className="w-80 bg-white border-l border-gray-200 overflow-y-auto shadow-sm p-4">
             <h3 className="font-bold text-sm text-gray-800 mb-4">⚙️ Properties</h3>
@@ -295,7 +277,7 @@ export default function BuilderPage() {
                   <label className="text-xs font-semibold text-gray-600">Configuration JSON</label>
                   <textarea className="w-full mt-1 px-3 py-2 border border-gray-300 rounded text-xs font-mono h-20" placeholder='{"key": "value"}' />
                 </div>
-                <button className="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm transition">
+                <button className="w-full py-2 bg-red-600 hover:bg-red-700 text-white rounded text-sm transition">
                   Test Agent Step
                 </button>
               </div>
@@ -308,16 +290,15 @@ export default function BuilderPage() {
           </aside>
         )}
 
-        {/* AI Assistant Panel */}
         {showAIPanel && (
-          <aside className="w-96 bg-gradient-to-b from-purple-900 to-indigo-900 text-white overflow-y-auto shadow-lg p-4 flex flex-col">
+          <aside className="w-96 bg-gradient-to-b from-red-900 to-orange-900 text-white overflow-y-auto shadow-lg p-4 flex flex-col">
             <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
               <Bot size={20} /> AI Assistant
             </h3>
             <div className="space-y-4 flex-1">
               <div>
                 <label className="text-sm font-semibold">Provider</label>
-                <select value={aiProvider} onChange={(e) => setAiProvider(e.target.value)} className="w-full mt-1 px-3 py-2 rounded bg-purple-800 text-white text-sm">
+                <select value={aiProvider} onChange={(e) => setAiProvider(e.target.value)} className="w-full mt-1 px-3 py-2 rounded bg-red-800 text-white text-sm">
                   <option value="microsoft">Microsoft AI</option>
                   <option value="openai">OpenAI</option>
                   <option value="custom">Custom API</option>
@@ -325,7 +306,7 @@ export default function BuilderPage() {
               </div>
               <div>
                 <label className="text-sm font-semibold">Model</label>
-                <select value={aiModel} onChange={(e) => setAiModel(e.target.value)} className="w-full mt-1 px-3 py-2 rounded bg-purple-800 text-white text-sm">
+                <select value={aiModel} onChange={(e) => setAiModel(e.target.value)} className="w-full mt-1 px-3 py-2 rounded bg-red-800 text-white text-sm">
                   <option value="gpt-4">GPT-4</option>
                   <option value="gpt-3.5">GPT-3.5</option>
                   <option value="claude">Claude</option>
@@ -336,22 +317,21 @@ export default function BuilderPage() {
                 <textarea
                   value={aiPrompt}
                   onChange={(e) => setAiPrompt(e.target.value)}
-                  className="w-full mt-1 px-3 py-2 rounded bg-purple-800 text-white text-sm h-24 font-mono placeholder-purple-300"
+                  className="w-full mt-1 px-3 py-2 rounded bg-red-800 text-white text-sm h-24 font-mono placeholder-red-300"
                   placeholder="Describe what you want to build..."
                 />
               </div>
-              <div className="bg-purple-800 p-3 rounded-lg text-xs h-32 overflow-y-auto border border-purple-700">
-                <p className="text-purple-200">AI Response will appear here...</p>
+              <div className="bg-red-800 p-3 rounded-lg text-xs h-32 overflow-y-auto border border-red-700">
+                <p className="text-red-200">AI Response will appear here...</p>
               </div>
             </div>
-            <button className="w-full mt-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition flex items-center justify-center gap-2">
+            <button className="w-full mt-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition flex items-center justify-center gap-2">
               <Zap size={18} /> Generate with AI
             </button>
           </aside>
         )}
       </div>
 
-      {/* Bottom: Terminal/Logs */}
       <footer className="bg-gray-900 text-gray-100 border-t border-gray-700 p-4 h-24 overflow-y-auto font-mono text-xs">
         <div className="text-green-400">✓ WonderSpace Builder Ready</div>
         <div className="text-gray-400">Pages: {pages.length} | Blocks: {pages.reduce((sum, p) => sum + p.blocks.length, 0)} | Agent Steps: {agentSteps.length}</div>
