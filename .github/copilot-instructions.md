@@ -1,4 +1,17 @@
-# GitHub Copilot Instructions for THE.MAINREPO.01
+# Copilot Task Instructions for AI-WONDER-LABs/THE.MAINREPO.01
+
+## Task Confirmation & Updates
+1. **Task Status**: After completing any task (file creation, code edits, security scans, tests), always post a confirmation comment summarizing:
+   - What was done
+   - Any errors encountered
+   - Next recommended steps
+2. **Security Checks**: Before marking any task as complete, run:
+   - `npm run lint && npm run test && npm audit && npx tsc --noEmit` (Node/TS)
+   - `black . && flake8 . && bandit -r . && pip-audit` (Python)
+3. **Dependency Checks**: List any outdated or vulnerable dependencies found.
+4. **CI/CD Verification**: Ensure all GitHub Actions or Azure pipelines run successfully.
+5. **Daily/PR Updates**: For long-running tasks or multi-file changes, post interim progress updates, confirming what is complete and what remains.
+6. **Completion Confirmation**: Always conclude with a **final comment**:
 
 ## Purpose
 Enable Copilot to generate, modify, and validate code automatically with full checks for coding standards, security, and CI compatibility. All generated code should be production-ready and verified locally before PRs.
