@@ -71,7 +71,7 @@
     "redis": "^5.9.0",
     "refractor": "^5.0.0",
     "sequelize": "^6.37.2",
-    "stripe": "^15.1.0",
+    "stripe": "^19.3.1",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
